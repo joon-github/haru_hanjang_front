@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
-import Nav from "./components/Nav";
+import Nav from "./components/Navs";
 import Header from "./components/Header";
+import My_Sentence from "./pages/My_Sentence";
+import My_Word from "./pages/My_Word";
+import Game from "./pages/Game";
+import Setting from "./pages/Setting";
+
 function App() {
   function setScreenSize() {
     let vh = window.innerHeight * 0.01;
@@ -12,18 +18,23 @@ function App() {
     setScreenSize();
   });
   const App = styled.div`
-    display: flex;
+    /* background-color: aqua; */
     height: calc(var(--vh, 1vh) * 100);
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
   `;
   return (
-    <App>
-      <Header></Header>
-      <Main></Main>
-      <Nav></Nav>
-    </App>
+    <BrowserRouter>
+      <App>
+        <Header></Header>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/my_sentence" element={<My_Sentence />} />
+          <Route path="/my_word" element={<My_Word />} />
+          <Route path="/game" element={<Game />} />
+          <Route path="/setting" element={<Setting />} />
+        </Routes>
+        <Nav></Nav>
+      </App>
+    </BrowserRouter>
   );
 }
 

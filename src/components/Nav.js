@@ -1,11 +1,33 @@
 import React from "react";
-// import styled from "styled-components";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const Nav = () => {
-  // const NavTag = styled.nav`
-  //   background-color: red;
-  // `;
-  return <div>nav</div>;
+const Nav = ({ data, idx, className, onClickHandler }) => {
+  const NavContain = styled.div`
+    img {
+      width: 20px;
+      margin: 5px;
+    }
+    &.submenu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 2px 0 2px;
+    }
+    &.focused {
+      background-color: lightgray;
+    }
+  `;
+
+  return (
+    <Link to={data.url}>
+      <NavContain className={className} onClick={() => onClickHandler(idx)}>
+        <img src={data.icon}></img>
+        <div>{data.name}</div>
+      </NavContain>
+    </Link>
+  );
 };
 
 export default Nav;
