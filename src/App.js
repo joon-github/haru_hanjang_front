@@ -1,39 +1,39 @@
 import styled from "styled-components";
-import { useEffect } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from "./pages/Main";
-import Nav from "./components/Navs";
-import Header from "./components/Header";
-import My_Sentence from "./pages/My_Sentence";
-import My_Word from "./pages/My_Word";
-import Game from "./pages/Game";
-import Setting from "./pages/Setting";
-
+import { useSelector } from "react-redux";
+const Main = React.lazy(() => import("./pages/Main"));
+const Nav = React.lazy(() => import("./components/Navs"));
+const Header = React.lazy(() => import("./components/Header"));
+const MySentence = React.lazy(() => import("./pages/My_Sentence"));
+const MyWord = React.lazy(() => import("./pages/My_Word"));
+const Game = React.lazy(() => import("./pages/Game"));
+const Setting = React.lazy(() => import("./pages/Setting"));
+const Loading = React.lazy(() => import("./components/Loding"));
+const AppContainer = styled.div`
+  height: 100vh;
+`;
 function App() {
-  function setScreenSize() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }
-  useEffect(() => {
-    setScreenSize();
-  });
-  const App = styled.div`
-    /* background-color: aqua; */
-    height: calc(var(--vh, 1vh) * 100);
-  `;
+  const isMain = useSelector((state) => state.onlyMainView[0].isMain);
+  console.log(isMain);
+
   return (
     <BrowserRouter>
-      <App>
-        <Header></Header>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/my_sentence" element={<My_Sentence />} />
-          <Route path="/my_word" element={<My_Word />} />
-          <Route path="/game" element={<Game />} />
-          <Route path="/setting" element={<Setting />} />
-        </Routes>
-        <Nav></Nav>
-      </App>
+      <Suspense fallback={<Loading />}>
+        <AppContainer>
+          {isMain ? null : <Header></Header>}
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/my_sentence" element={<MySentence />} />
+              <Route path="/my_word" element={<MyWord />} />
+              <Route path="/game" element={<Game />} />
+              <Route path="/setting" element={<Setting />} />
+            </Routes>
+          </div>
+          {isMain ? null : <Nav></Nav>}
+        </AppContainer>
+      </Suspense>
     </BrowserRouter>
   );
 }
