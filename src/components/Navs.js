@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Nav from "./Nav";
 import navData from "../navData";
+import { creentTap } from "../actions/action";
+import { useSelector, useDispatch } from "react-redux";
 const NavTag = styled.nav`
   position: absolute;
   bottom: 0;
@@ -11,11 +13,11 @@ const NavTag = styled.nav`
   grid-template-columns: 25% 25% 25% 25%;
 `;
 const Navs = () => {
-  const [currentTab, setCurrentTab] = useState("");
+  const creentTapidx = useSelector((state) => state.creentTap[0]);
+  const dispatch = useDispatch();
   const onClickHandler = (idx) => {
-    setCurrentTab(idx);
+    dispatch(creentTap(idx));
   };
-
   return (
     <NavTag>
       {navData.map((data, idx) => {
@@ -24,7 +26,7 @@ const Navs = () => {
             key={data.id}
             data={data}
             idx={idx}
-            className={idx === currentTab ? "submenu focused" : "submenu"}
+            className={idx === creentTapidx ? "submenu focused" : "submenu"}
             onClickHandler={onClickHandler}
           ></Nav>
         );

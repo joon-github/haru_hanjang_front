@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import navReducer from "./reducers/NavReducer";
+import navReducer from "./reducers/initilalReducer";
 
 const store = createStore(navReducer);
 

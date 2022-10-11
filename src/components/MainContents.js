@@ -5,25 +5,18 @@ import styled from "styled-components";
 
 const MainContentsContainer = styled.div`
   position: absolute;
-  bottom: 10%;
+  bottom: 15%;
   display: grid;
   width: 80%;
-  height: 50%;
+  height: 40%;
   grid-template-columns: 50% 50%;
   grid-template-rows: 50% 50%;
 `;
-const MainContents = ({ handleClick }) => {
+const MainContents = () => {
   return (
     <MainContentsContainer>
       {data.map((data, idx) => {
-        return (
-          <MainContent
-            key={data.id}
-            data={data}
-            idx={idx}
-            handleClick={handleClick}
-          ></MainContent>
-        );
+        return <MainContent key={data.id} data={data} idx={idx}></MainContent>;
       })}
     </MainContentsContainer>
   );

@@ -14,7 +14,7 @@ const NavContain = styled.div`
     margin: 0 2px 0 2px;
   }
   &.focused {
-    background-color: lightgray;
+    background-color: rgb(176, 207, 255);
   }
 `;
 const Nav = ({ data, idx, className, onClickHandler }) => {
